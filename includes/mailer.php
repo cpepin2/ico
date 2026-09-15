@@ -58,6 +58,30 @@ function send_mail(string $subject, string $body, ?string $replyTo = null): bool
     };
 }
 
+/**
+ * Recipients of contact form enquiries.
+ *
+ * CONTACT_RECIPIENT may hold one address or several separated by commas, so
+ * enquiries can land in more than one inbox. Anything that does not survive
+ * sanitising and validation is dropped rather than passed to the transport.
+ *
+ * @return list<string>
+ */
+function contact_recipients(): array
+{
+    $raw = is_string(CONTACT_RECIPIENT) ? CONTACT_RECIPIENT : '';
+
+    $addresses = [];
+    foreach (explode(',', $raw) as $candidate) {
+        $candidate = mail_sanitize_header($candidate);
+        if ($candidate !== '' && filter_var($candidate, FILTER_VALIDATE_EMAIL)) {
+            $addresses[] = $candidate;
+        }
+    }
+
+    return array_values(array_unique($addresses));
+}
+
 /** Configuration-only checks. Return setting names and guidance, never values. */
 function mail_configuration_errors(): array
 {
@@ -65,11 +89,17 @@ function mail_configuration_errors(): array
     if (!in_array(MAIL_TRANSPORT, ['mail', 'smtp', 'log'], true)) {
         $errors[] = 'MAIL_TRANSPORT must be mail, smtp, or log.';
     }
-    foreach (['MAIL_FROM', 'CONTACT_RECIPIENT'] as $name) {
-        $value = constant($name);
-        if (!is_string($value) || preg_match('/[\r\n\x00]/', $value) || !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = $name . ' must be a valid email address.';
-        }
+
+    $from = MAIL_FROM;
+    if (!is_string($from) || preg_match('/[\r\n\x00]/', $from) || !filter_var($from, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'MAIL_FROM must be a valid email address.';
+    }
+
+    // One address, or several comma-separated — every one must be valid.
+    $raw = is_string(CONTACT_RECIPIENT) ? CONTACT_RECIPIENT : '';
+    $parts = array_filter(array_map('trim', explode(',', $raw)), static fn ($p): bool => $p !== '');
+    if ($parts === [] || count($parts) !== count(contact_recipients())) {
+        $errors[] = 'CONTACT_RECIPIENT must be a valid email address, or several separated by commas.';
     }
     if (MAIL_TRANSPORT === 'smtp') {
         if (!is_string(SMTP_HOST) || trim(SMTP_HOST) === '' || preg_match('/[\s;\/]/', SMTP_HOST)) {
@@ -125,7 +155,7 @@ function mail_via_php(string $subject, string $body, ?string $replyTo): bool
 
     // -f sets the envelope sender, which improves SPF alignment on shared hosts.
     return mail(
-        mail_sanitize_header(CONTACT_RECIPIENT),
+        implode(', ', contact_recipients()),
         $subject,
         $body,
         implode("\r\n", $headerLines),
@@ -161,7 +191,9 @@ function mail_via_smtp(string $subject, string $body, ?string $replyTo): bool
         }
 
         $mailer->setFrom(MAIL_FROM, MAIL_FROM_NAME);
-        $mailer->addAddress(CONTACT_RECIPIENT);
+        foreach (contact_recipients() as $recipient) {
+            $mailer->addAddress($recipient);
+        }
 
         if ($replyTo !== null) {
             $mailer->addReplyTo($replyTo);
@@ -192,7 +224,7 @@ function mail_via_log(string $subject, string $body, ?string $replyTo): bool
     $entry = sprintf(
         "=== %s ===\nTo: %s\nReply-To: %s\nSubject: %s\n\n%s\n\n",
         date('c'),
-        CONTACT_RECIPIENT,
+        implode(', ', contact_recipients()),
         $replyTo ?? '(none)',
         $subject,
         $body

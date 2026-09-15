@@ -79,8 +79,11 @@ config_default('BING_SITE_VERIFICATION', (string) env('BING_SITE_VERIFICATION', 
 // Contact
 // ---------------------------------------------------------------------------
 // Where contact form submissions are delivered.
-config_default('CONTACT_RECIPIENT', env('CONTACT_RECIPIENT', 'charlie@pepin.cc'));
-config_default('CONTACT_PUBLIC_EMAIL', env('CONTACT_PUBLIC_EMAIL', 'charlie@pepin.cc'));
+// Where enquiries are delivered. One address, or several separated by commas.
+config_default('CONTACT_RECIPIENT', env('CONTACT_RECIPIENT', 'hello@icostl.com,charlie@pepin.cc'));
+
+// Shown publicly on the site.
+config_default('CONTACT_PUBLIC_EMAIL', env('CONTACT_PUBLIC_EMAIL', 'hello@icostl.com'));
 
 // Envelope sender. Must be a mailbox on your own domain or messages will be
 // rejected by SPF/DMARC — never set this to the visitor's address.

@@ -27,8 +27,9 @@ declare(strict_types=1);
 // define('BING_SITE_VERIFICATION', '');
 
 // --- Contact -------------------------------------------------------------
-// Where form submissions are delivered.
-// define('CONTACT_RECIPIENT', 'charlie@icostl.com');
+// Where form submissions are delivered. One address, or several separated by
+// commas to deliver the same enquiry to more than one inbox.
+// define('CONTACT_RECIPIENT', 'hello@icostl.com,charlie@pepin.cc');
 
 // Shown publicly on the site.
 // define('CONTACT_PUBLIC_EMAIL', 'hello@icostl.com');
