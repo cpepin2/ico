@@ -20,6 +20,7 @@ ErrorDocument 404 /404.php
 RedirectMatch 404 ^/\.git(/|$)
 RedirectMatch 404 ^/storage(/|$)
 RedirectMatch 404 ^/vendor(/|$)
+RedirectMatch 404 ^/(scripts|tests|docs)(/|$)
 
 <FilesMatch "^(config\.local\.php|composer\.(json|lock)|README\.md|\.env.*)$">
     Require all denied

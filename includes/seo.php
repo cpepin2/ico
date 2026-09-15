@@ -24,6 +24,12 @@ function render_meta(array $page): void
     echo '    <meta name="robots" content="' . e($robots) . "\">\n";
     echo '    <link rel="canonical" href="' . e($canonical) . "\">\n\n";
 
+    foreach (['google-site-verification' => GOOGLE_SITE_VERIFICATION, 'msvalidate.01' => BING_SITE_VERIFICATION] as $name => $token) {
+        if ($token !== '') {
+            echo '    <meta name="' . $name . '" content="' . e($token) . "\">\n";
+        }
+    }
+
     // Open Graph
     echo '    <meta property="og:type" content="website">' . "\n";
     echo '    <meta property="og:site_name" content="' . e(SITE_NAME) . "\">\n";
@@ -145,14 +151,14 @@ function render_schema(array $graphs): void
         $json = json_encode(
             $graph,
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+            | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
         );
 
         if ($json === false) {
             continue;
         }
 
-        // Prevent a literal </script> inside any string from closing the tag.
-        $json = str_replace('<', '<', $json);
+        // JSON_HEX_TAG prevents a literal </script> from closing the HTML tag.
 
         echo '    <script type="application/ld+json">' . $json . "</script>\n";
     }

@@ -233,20 +233,17 @@ Then in `includes/config.local.php`:
 
 ```php
 define('MAIL_TRANSPORT',  'smtp');
-define('SMTP_HOST',       'smtp.office365.com');
+define('SMTP_HOST',       'smtp.example.com');
 define('SMTP_PORT',       587);
 define('SMTP_USERNAME',   'website@icostl.com');
-define('SMTP_PASSWORD',   'your-app-password');
+define('SMTP_PASSWORD',   'your-provider-credential');
 define('SMTP_ENCRYPTION', 'tls');
 ```
 
 `mailer.php` degrades safely: if `vendor/autoload.php` or `SMTP_HOST` is
 missing it logs the problem and reports failure rather than throwing.
 
-> **Recommended:** route mail through your own Microsoft 365 tenant. It gives
-> far better deliverability than shared-host `mail()`, and it means the business
-> runs on the stack it sells. Microsoft 365 requires SMTP AUTH to be enabled on
-> the mailbox; most tenants also require an app password.
+This adapter supports username/password authentication or an authorized relay. Microsoft 365 tenant policies may require OAuth, which needs a separate integration; app passwords are not a general workaround. See [production setup](docs/production-setup.md) for SMTP readiness checks and search-engine verification steps.
 
 ---
 
@@ -481,3 +478,7 @@ provided. Credibility comes from clear scope, transparent pricing, a documented
 process, and real founder experience.
 
 If you add claims later, make sure they are accurate and substantiated.
+
+## Production verification
+
+See [production setup](docs/production-setup.md) for Google/Bing verification, sitemap checks, SMTP requirements, and safe CLI validation.

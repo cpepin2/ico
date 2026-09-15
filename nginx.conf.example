@@ -30,7 +30,7 @@ server {
     error_page 404 /404.php;
 
     # --- Protect application internals ---
-    location ~ ^/(storage|vendor)/ {
+    location ~ ^/(storage|vendor|scripts|tests|docs)/ {
         deny all;
         return 404;
     }
@@ -65,6 +65,15 @@ server {
 
     location / {
         try_files $uri $uri/ =404;
+    }
+
+    location = /sitemap.xml {
+        rewrite ^ /sitemap.php last;
+    }
+
+    location ~ ^/(composer\.(json|lock)|README\.md)$ {
+        deny all;
+        return 404;
     }
 
     location ~ \.php$ {

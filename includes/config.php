@@ -71,6 +71,10 @@ config_default('SITE_LOCALITY', 'St. Louis');
 config_default('SITE_REGION', 'MO');
 config_default('SITE_COUNTRY', 'US');
 
+// Optional ownership tokens: use only the meta tag's content value.
+config_default('GOOGLE_SITE_VERIFICATION', (string) env('GOOGLE_SITE_VERIFICATION', ''));
+config_default('BING_SITE_VERIFICATION', (string) env('BING_SITE_VERIFICATION', ''));
+
 // ---------------------------------------------------------------------------
 // Contact
 // ---------------------------------------------------------------------------

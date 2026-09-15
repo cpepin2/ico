@@ -33,12 +33,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
 foreach ($pages as $path => [$changefreq, $priority]) {
-    $file    = ROOT_PATH . ($path === '/' ? '/index.php' : $path);
-    $lastmod = is_file($file) ? date('Y-m-d', (int) filemtime($file)) : date('Y-m-d');
-
     echo "    <url>\n";
-    echo '        <loc>' . e(url($path)) . "</loc>\n";
-    echo '        <lastmod>' . $lastmod . "</lastmod>\n";
+    echo '        <loc>' . htmlspecialchars(url($path), ENT_XML1 | ENT_QUOTES, 'UTF-8') . "</loc>\n";
+    // Omit lastmod: deployment file timestamps do not track content changes.
     echo '        <changefreq>' . $changefreq . "</changefreq>\n";
     echo '        <priority>' . $priority . "</priority>\n";
     echo "    </url>\n";

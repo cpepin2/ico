@@ -1,6 +1,8 @@
 # Local, environment-specific configuration — never commit
 /includes/config.local.php
 .env
+.env.*
+!.env.example
 
 # Runtime state
 /storage/ratelimit/*

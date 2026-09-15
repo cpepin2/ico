@@ -22,6 +22,10 @@ declare(strict_types=1);
 // Production domain, no trailing slash. Used for canonical URLs and OG tags.
 // define('SITE_URL', 'https://www.icostl.com');
 
+// Ownership verification: paste only the content value, not the entire tag.
+// define('GOOGLE_SITE_VERIFICATION', '');
+// define('BING_SITE_VERIFICATION', '');
+
 // --- Contact -------------------------------------------------------------
 // Where form submissions are delivered.
 // define('CONTACT_RECIPIENT', 'charlie@icostl.com');
@@ -40,13 +44,15 @@ declare(strict_types=1);
 // define('MAIL_TRANSPORT', 'smtp');
 
 // --- SMTP ----------------------------------------------------------------
-// Microsoft 365 example. Requires an account with SMTP AUTH enabled, and
-// modern tenants generally require an app password or a licensed mailbox.
+// Use your provider's documented SMTP endpoint and credentials.
+// This adapter supports username/password or an authorized relay, not OAuth.
+// Microsoft 365 tenant policies may require OAuth; an app password is not a
+// general workaround. See docs/production-setup.md before choosing a provider.
 //
-// define('SMTP_HOST', 'smtp.office365.com');
+// define('SMTP_HOST', 'smtp.example.com');
 // define('SMTP_PORT', 587);
 // define('SMTP_USERNAME', 'website@icostl.com');
-// define('SMTP_PASSWORD', 'REPLACE_WITH_APP_PASSWORD');
+// define('SMTP_PASSWORD', 'REPLACE_WITH_PROVIDER_CREDENTIAL');
 // define('SMTP_ENCRYPTION', 'tls');
 
 // Hostinger example:
