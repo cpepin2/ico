@@ -61,15 +61,18 @@ a {
     transition: color var(--transition-fast);
 }
 
-a:hover {
+/* Buttons are excluded: they own their text colour through .btn--* and a
+   descendant selector like `.hero--dark a:hover` would otherwise outrank it,
+   tinting a hovered button's label orange on top of its orange fill. */
+a:not(.btn):hover {
     color: var(--color-orange-text);
 }
 
 /* On black the full-strength orange already clears AA, so use it there. */
-.section--dark a:hover,
-.hero--dark a:hover,
-.cta-band a:hover,
-.site-footer a:hover {
+.section--dark a:not(.btn):hover,
+.hero--dark a:not(.btn):hover,
+.cta-band a:not(.btn):hover,
+.site-footer a:not(.btn):hover {
     color: var(--color-orange);
 }
 
