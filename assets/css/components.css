@@ -63,18 +63,20 @@
     transform: translateY(1px);
 }
 
-/* White on Signal Orange is 3.10:1 — below the 4.5:1 AA needs for button
-   text. Black on the same orange is 6.77:1 and keeps the exact brand colour. */
+/* White on Signal Orange, per the approved brand kit. Measures 3.10:1, which
+   sits below the WCAG AA 4.5:1 threshold for text at this size — a deliberate
+   brand decision, not an oversight. Switch `color` to var(--color-black) here
+   and on :hover to reach 6.77:1 if that trade is ever revisited. */
 .btn--primary {
     background: var(--color-orange);
     border-color: var(--color-orange);
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .btn--primary:hover {
     background: var(--color-orange-hover);
     border-color: var(--color-orange-hover);
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .btn--secondary {
@@ -86,7 +88,7 @@
 .btn--secondary:hover {
     background: var(--color-orange);
     border-color: var(--color-orange);
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .btn--ghost {

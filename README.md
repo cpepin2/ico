@@ -430,9 +430,8 @@ requires 3:1 for non-text UI) but below the 4.5:1 needed for body text. So:
 - `--color-orange` (`#ff5a36`) — fills, rules, borders, and text **on black**
 - `--color-orange-text` (`#cc3616`) — orange **text on light backgrounds**
 
-Primary buttons use **black text on Signal Orange** (6.77:1) rather than the
-white text shown in the brand kit, which measures 3.10:1 and fails AA. The
-orange itself is unchanged. See the accessibility note below.
+Primary buttons use **white text on Signal Orange**, as specified in the brand
+kit. That pairing measures 3.10:1 — see the accessibility note below.
 
 ---
 
@@ -449,19 +448,28 @@ Built to WCAG 2.2 AA:
 - FAQ uses native `<details>` and works with JavaScript disabled
 - `prefers-reduced-motion` honoured globally
 - No information conveyed by colour alone
-- All colour pairs verified at 4.5:1 for text, 3:1 for UI
+- All colour pairs verified at 4.5:1 for text and 3:1 for UI, with one
+  documented exception below
 
-### The one deliberate deviation from the brand kit
+### Known exception: primary button text
 
-The kit shows **white text on Signal Orange** buttons. That measures **3.10:1**,
-below the 4.5:1 AA threshold for text this size. It was changed to **black text
-on the same orange (6.77:1)**.
+Primary buttons use **white text on Signal Orange**, matching the approved brand
+kit. That combination measures **3.10:1**, below the 4.5:1 WCAG AA threshold for
+text at this size.
 
-The brand colour is untouched — only the text colour changed. To restore the
-kit exactly, in `assets/css/components.css` set `.btn--primary` and
-`.btn--primary:hover` back to `color: var(--color-white)`. That reintroduces a
-known AA failure on the site's most important element, so it is worth a
-deliberate decision rather than a silent revert.
+This is a deliberate brand decision, recorded here so it is not mistaken for an
+oversight and silently "fixed". Everything else on the site meets AA.
+
+To trade the kit's appearance for full AA compliance, set `color` to
+`var(--color-black)` on `.btn--primary` and `.btn--primary:hover` in
+`assets/css/components.css` — black on the same orange measures 6.77:1. The
+orange itself does not change either way.
+
+Note that this applies only to button *fills*. Orange **text** on light
+backgrounds still uses the darker `--color-orange-text` (`#cc3616`), and the
+skip link and selection highlight still use black on orange — those are
+accessibility affordances rather than brand surfaces, so they were left at
+their compliant values.
 
 ---
 
