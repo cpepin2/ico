@@ -63,9 +63,9 @@ config_default('SITE_NAME', 'icoSTL');
 config_default('SITE_TAGLINE', 'Ready, in case of.');
 config_default('SITE_DESCRIPTOR', 'Technology / Security / Automation');
 
-// Replace with the production domain. Used for canonical URLs, Open Graph
-// tags, the sitemap and structured data. No trailing slash.
-config_default('SITE_URL', env('SITE_URL', 'https://www.icostl.com'));
+// Production domain. Used for canonical URLs, Open Graph tags, the sitemap and
+// structured data. No trailing slash. The apex is canonical; www also resolves.
+config_default('SITE_URL', env('SITE_URL', 'https://icostl.com'));
 
 config_default('SITE_LOCALITY', 'St. Louis');
 config_default('SITE_REGION', 'MO');
@@ -79,8 +79,8 @@ config_default('BING_SITE_VERIFICATION', (string) env('BING_SITE_VERIFICATION', 
 // Contact
 // ---------------------------------------------------------------------------
 // Where contact form submissions are delivered.
-config_default('CONTACT_RECIPIENT', env('CONTACT_RECIPIENT', 'hello@icostl.com'));
-config_default('CONTACT_PUBLIC_EMAIL', env('CONTACT_PUBLIC_EMAIL', 'hello@icostl.com'));
+config_default('CONTACT_RECIPIENT', env('CONTACT_RECIPIENT', 'charlie@pepin.cc'));
+config_default('CONTACT_PUBLIC_EMAIL', env('CONTACT_PUBLIC_EMAIL', 'charlie@pepin.cc'));
 
 // Envelope sender. Must be a mailbox on your own domain or messages will be
 // rejected by SPF/DMARC — never set this to the visitor's address.
