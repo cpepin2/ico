@@ -1,0 +1,20 @@
+# Local, environment-specific configuration — never commit
+/includes/config.local.php
+.env
+
+# Runtime state
+/storage/ratelimit/*
+!/storage/ratelimit/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Dependencies
+/vendor/
+composer.lock
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

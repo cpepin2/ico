@@ -1,0 +1,88 @@
+# ==========================================================================
+# icoSTL — Apache configuration
+# Targets standard PHP hosting (Hostinger, cPanel, etc.)
+# ==========================================================================
+
+Options -Indexes
+DirectoryIndex index.php index.html
+
+# --------------------------------------------------------------------------
+# Custom error page
+# --------------------------------------------------------------------------
+ErrorDocument 404 /404.php
+
+# --------------------------------------------------------------------------
+# Protect application internals
+#
+# Note: /includes/form-handler.php is the contact form's POST endpoint and must
+# stay reachable. Everything else under /includes/ is denied.
+# --------------------------------------------------------------------------
+RedirectMatch 404 ^/\.git(/|$)
+RedirectMatch 404 ^/storage(/|$)
+RedirectMatch 404 ^/vendor(/|$)
+
+<FilesMatch "^(config\.local\.php|composer\.(json|lock)|README\.md|\.env.*)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Deny everything in /includes/ except the form handler.
+    RewriteCond %{REQUEST_URI} ^/includes/ [NC]
+    RewriteCond %{REQUEST_URI} !^/includes/form-handler\.php$ [NC]
+    RewriteRule .* - [F,L]
+
+    # Serve the generated sitemap at the conventional path.
+    RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+
+    # --- HTTPS ---
+    # Enable once a certificate is installed and confirmed working.
+    # RewriteCond %{HTTPS} !=on
+    # RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+    # --- Canonical host ---
+    # Pick one and uncomment to avoid duplicate-content indexing.
+    # RewriteCond %{HTTP_HOST} ^icostl\.com$ [NC]
+    # RewriteRule ^(.*)$ https://www.icostl.com/$1 [R=301,L]
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Security headers
+#
+# PHP pages set these themselves; this covers static assets and any response
+# PHP does not generate.
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Uncomment once HTTPS is confirmed in production.
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # Hashed asset URLs make long caching safe.
+    <FilesMatch "\.(css|js|svg|png|jpg|jpeg|webp|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Compression
+# --------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --------------------------------------------------------------------------
+# PHP hardening (ignored if PHP runs as FastCGI — set these in php.ini instead)
+# --------------------------------------------------------------------------
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_flag log_errors on
+    php_value session.cookie_httponly 1
+    php_value session.use_strict_mode 1
+</IfModule>

@@ -1,0 +1,80 @@
+# ==========================================================================
+# icoSTL — nginx equivalent of .htaccess
+#
+# For deployments on nginx (VPS, container) rather than Apache shared hosting.
+# Adjust server_name, root and the PHP-FPM socket to match your environment.
+# ==========================================================================
+
+server {
+    listen 80;
+    server_name icostl.com www.icostl.com;
+    return 301 https://www.icostl.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name www.icostl.com;
+
+    root /var/www/icostl;
+    index index.php;
+
+    ssl_certificate     /etc/letsencrypt/live/icostl.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/icostl.com/privkey.pem;
+
+    # --- Security headers (static assets; PHP sets its own) ---
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    error_page 404 /404.php;
+
+    # --- Protect application internals ---
+    location ~ ^/(storage|vendor)/ {
+        deny all;
+        return 404;
+    }
+
+    location ~ /\.(git|env) {
+        deny all;
+        return 404;
+    }
+
+    location = /includes/config.local.php {
+        deny all;
+        return 404;
+    }
+
+    # Everything under /includes/ is denied except the contact form endpoint.
+    location ^~ /includes/ {
+        location = /includes/form-handler.php {
+            include fastcgi_params;
+            fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+        deny all;
+        return 404;
+    }
+
+    # --- Long-lived caching for versioned assets ---
+    location ~* \.(css|js|svg|png|jpg|jpeg|webp|woff2)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 512;
+}

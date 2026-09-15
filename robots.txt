@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /includes/
+Disallow: /storage/
+Disallow: /thank-you.php
+
+# Update the host below if the production domain differs.
+Sitemap: https://www.icostl.com/sitemap.xml

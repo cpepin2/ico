@@ -1,0 +1,215 @@
+/* ==========================================================================
+   Responsive — breakpoint adjustments
+   Base styles are desktop-oriented; these steps down to tablet and phone.
+   ========================================================================== */
+
+/* Wide desktop: restore the full 80px outer margin ------------------------- */
+
+@media (min-width: 1200px) {
+    .container,
+    .site-header__inner {
+        padding-inline: var(--container-margin);
+    }
+}
+
+/* Tablet and below ---------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .card-grid--4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pricing {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .split,
+    .founder,
+    .contact-layout,
+    .capability,
+    .no-upsell {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xl);
+    }
+
+    .site-footer__top {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xl);
+    }
+}
+
+/* Mobile navigation --------------------------------------------------------- */
+
+@media (max-width: 860px) {
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        min-height: 44px;
+        padding: var(--space-sm) var(--space-md);
+        border: 1px solid var(--color-border-dark);
+        border-radius: var(--radius-md);
+        color: var(--color-white);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
+    }
+
+    .nav-toggle__bars {
+        display: grid;
+        gap: 4px;
+        width: 18px;
+    }
+
+    .nav-toggle__bars span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: currentColor;
+        transition: transform var(--transition-base), opacity var(--transition-base);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .site-header__inner {
+        flex-wrap: wrap;
+    }
+
+    .site-nav {
+        display: none;
+        flex-basis: 100%;
+        order: 3;
+    }
+
+    .site-nav.is-open {
+        display: block;
+    }
+
+    .site-nav__list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding-block: var(--space-md);
+        border-top: 1px solid var(--color-border-dark);
+        margin-top: var(--space-md);
+    }
+
+    .site-nav__list li {
+        border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .site-nav__link {
+        display: block;
+        padding-block: var(--space-md);
+        font-size: 1.0625rem;
+    }
+
+    .site-nav__link::after {
+        display: none;
+    }
+
+    .site-nav__link[aria-current="page"] {
+        color: var(--color-orange);
+    }
+
+    .site-nav__cta {
+        border-bottom: 0 !important;
+        padding-top: var(--space-md);
+    }
+
+    .site-nav__cta .btn {
+        width: 100%;
+    }
+}
+
+/* Small tablet / large phone -------------------------------------------------- */
+
+@media (max-width: 768px) {
+    :root {
+        --space-2xl: 56px;
+    }
+
+    .card-grid--2,
+    .card-grid--3,
+    .card-grid--4,
+    .pricing,
+    .capability__list,
+    .scope-list,
+    .form__row,
+    .split--even {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .process__step {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .site-footer__nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-lg);
+    }
+}
+
+/* Phone ------------------------------------------------------------------------ */
+
+@media (max-width: 560px) {
+    :root {
+        --container-gutter: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .button-group .btn {
+        width: 100%;
+    }
+
+    .site-footer__nav {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .site-footer__bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .error-page__links {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+}
+
+/* Print -------------------------------------------------------------------------- */
+
+@media print {
+    .site-header,
+    .site-footer,
+    .cta-band,
+    .nav-toggle,
+    .skip-link {
+        display: none !important;
+    }
+
+    body {
+        color: #000;
+        background: #fff;
+    }
+
+    .hero--dark,
+    .section--dark {
+        background: #fff !important;
+        color: #000 !important;
+    }
+}
