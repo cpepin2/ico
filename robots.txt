@@ -3,7 +3,9 @@ Allow: /
 
 Disallow: /includes/
 Disallow: /storage/
-Disallow: /thank-you.php
+Disallow: /vendor/
+
+# Allow thank-you.php to be crawled so its noindex meta tag can be read.
 
 # Update the host below if the production domain differs.
 Sitemap: https://www.icostl.com/sitemap.xml

@@ -36,6 +36,10 @@ function mail_sanitize_header(string $value): string
  */
 function send_mail(string $subject, string $body, ?string $replyTo = null): bool
 {
+    if (mail_configuration_errors() !== []) {
+        error_log('icoSTL: Mail configuration is invalid. Run the CLI mail readiness check.');
+        return false;
+    }
     $subject = mail_sanitize_header($subject);
 
     // Only ever trust a reply-to that still validates after sanitising.
@@ -49,8 +53,50 @@ function send_mail(string $subject, string $body, ?string $replyTo = null): bool
     return match (MAIL_TRANSPORT) {
         'smtp'  => mail_via_smtp($subject, $body, $replyTo),
         'log'   => mail_via_log($subject, $body, $replyTo),
-        default => mail_via_php($subject, $body, $replyTo),
+        'mail'  => mail_via_php($subject, $body, $replyTo),
+        default => false,
     };
+}
+
+/** Configuration-only checks. Return setting names and guidance, never values. */
+function mail_configuration_errors(): array
+{
+    $errors = [];
+    if (!in_array(MAIL_TRANSPORT, ['mail', 'smtp', 'log'], true)) {
+        $errors[] = 'MAIL_TRANSPORT must be mail, smtp, or log.';
+    }
+    foreach (['MAIL_FROM', 'CONTACT_RECIPIENT'] as $name) {
+        $value = constant($name);
+        if (!is_string($value) || preg_match('/[\r\n\x00]/', $value) || !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = $name . ' must be a valid email address.';
+        }
+    }
+    if (MAIL_TRANSPORT === 'smtp') {
+        if (!is_string(SMTP_HOST) || trim(SMTP_HOST) === '' || preg_match('/[\s;\/]/', SMTP_HOST)) {
+            $errors[] = 'SMTP_HOST must be a single hostname or IP address.';
+        }
+        if (!is_int(SMTP_PORT) || SMTP_PORT < 1 || SMTP_PORT > 65535) {
+            $errors[] = 'SMTP_PORT must be an integer between 1 and 65535.';
+        }
+        if (!in_array(SMTP_ENCRYPTION, ['tls', 'ssl'], true)) {
+            $errors[] = 'SMTP_ENCRYPTION must be tls (STARTTLS) or ssl (implicit TLS).';
+        }
+        if (!is_string(SMTP_USERNAME) || !is_string(SMTP_PASSWORD)
+            || ((SMTP_USERNAME === '') !== (SMTP_PASSWORD === ''))) {
+            $errors[] = 'Set both SMTP_USERNAME and SMTP_PASSWORD, or neither for an authorized relay.';
+        }
+        if (!extension_loaded('openssl')) {
+            $errors[] = 'The OpenSSL extension is required for SMTP TLS.';
+        }
+        $autoload = ROOT_PATH . '/vendor/autoload.php';
+        if (is_readable($autoload)) {
+            require_once $autoload;
+        }
+        if (!class_exists(\PHPMailer\PHPMailer\PHPMailer::class)) {
+            $errors[] = 'Install PHPMailer with Composer before selecting SMTP.';
+        }
+    }
+    return $errors;
 }
 
 /**
@@ -92,17 +138,8 @@ function mail_via_php(string $subject, string $body, ?string $replyTo): bool
  */
 function mail_via_smtp(string $subject, string $body, ?string $replyTo): bool
 {
-    $autoload = ROOT_PATH . '/vendor/autoload.php';
-
-    if (!is_readable($autoload) || SMTP_HOST === '') {
-        error_log('icoSTL: SMTP transport selected but PHPMailer or SMTP_HOST is unavailable.');
-        return false;
-    }
-
-    require_once $autoload;
-
-    if (!class_exists(\PHPMailer\PHPMailer\PHPMailer::class)) {
-        error_log('icoSTL: PHPMailer is not installed.');
+    if (mail_configuration_errors() !== []) {
+        error_log('icoSTL: SMTP configuration is invalid. Run the CLI mail readiness check.');
         return false;
     }
 
@@ -116,6 +153,8 @@ function mail_via_smtp(string $subject, string $body, ?string $replyTo): bool
         $mailer->Username   = SMTP_USERNAME;
         $mailer->Password   = SMTP_PASSWORD;
         $mailer->CharSet    = 'UTF-8';
+        $mailer->SMTPDebug  = 0;
+        $mailer->Timeout    = 15;
 
         if (SMTP_ENCRYPTION !== '') {
             $mailer->SMTPSecure = SMTP_ENCRYPTION;
@@ -133,7 +172,8 @@ function mail_via_smtp(string $subject, string $body, ?string $replyTo): bool
 
         return $mailer->send();
     } catch (\Throwable $exception) {
-        error_log('icoSTL: SMTP send failed — ' . $exception->getMessage());
+        // Provider exceptions can contain server responses and private addresses.
+        error_log('icoSTL: SMTP send failed. Check the provider and CLI readiness check.');
         return false;
     }
 }
