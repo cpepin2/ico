@@ -18,12 +18,12 @@
     align-items: flex-start;
     gap: var(--space-md);
     padding-block: var(--space-sm);
-    border-bottom: 1px solid var(--color-border-dark);
+    border-bottom: 1px solid var(--color-border);
     font-size: var(--text-sm);
 }
 
-.section--light .scope-list li {
-    border-bottom-color: var(--color-border);
+.section--dark .scope-list li {
+    border-bottom-color: var(--color-border-dark);
 }
 
 .scope-list .icon {
@@ -36,22 +36,28 @@
 
 /* Report promise block -------------------------------------------------------- */
 
+/* A dark statement block sitting inside a light section. It sets its own text
+   colour rather than inheriting the section's — without that it renders black
+   on near-black. Inside an already-dark section the fill inverts, so the block
+   still separates from the surface behind it. */
 .promise {
     display: grid;
     gap: var(--space-md);
     padding: var(--space-lg);
     border-left: 4px solid var(--color-orange);
     background: var(--color-surface-dark);
+    color: var(--color-white);
+}
+
+.section--dark .promise {
+    background: var(--color-surface);
+    color: var(--color-black);
 }
 
 .promise__line {
     font-size: 1.25rem;
     font-weight: var(--weight-bold);
     letter-spacing: var(--tracking-tight);
-}
-
-.section--light .promise {
-    background: var(--color-surface);
 }
 
 /* Price callout ---------------------------------------------------------------- */

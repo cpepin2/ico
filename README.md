@@ -263,7 +263,13 @@ and no code changes are needed.
 | `logo.svg` | Wordmark, light backgrounds | Production SVG, **text converted to outlines** |
 | `logo-reverse.svg` | Wordmark, dark backgrounds | Production SVG, outlined |
 | `mark.svg` | Standalone "i" mark | Production SVG |
-| `assets/images/og-default.png` | Social share card (1200×630) | Designed OG image |
+| `assets/images/og-default.png` | Social share card, sitewide (1200×630) | Optional — already branded |
+| `assets/images/og-assessment.png` | Social share card, assessment page | Optional — already branded |
+
+The two OG cards are real renders in Assistant with the wordmark, tagline and
+Signal Orange furniture — not placeholders. Any page can override the sitewide
+card by setting `'og_image' => '/assets/images/your-card.png'` in its `$page`
+array, as `microsoft-365-assessment.php` does.
 
 **The header and footer wordmark is rendered in CSS, not from an SVG file**
 (`.wordmark` in `components.css`) — live text, so it stays crisp at any size and

@@ -379,6 +379,10 @@
     font-size: var(--text-body);
 }
 
+.section--dark .process__body {
+    color: var(--color-muted-on-dark);
+}
+
 /* Capability list ---------------------------------------------------------------- */
 
 .capability {

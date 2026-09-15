@@ -14,6 +14,10 @@
     --color-muted: #5a5a5a;
     --color-muted-light: #8a8a8a;
     --color-field-border: #8f8f8f;
+
+    /* --color-muted is tuned for light surfaces (6.90:1 on white) and drops to
+       3.04:1 on black. This is its counterpart for dark sections. */
+    --color-muted-on-dark: #c8c8c8;
     --color-surface: #f6f6f6;
     --color-surface-dark: #0a0a0a;
     --color-border-dark: #2a2a2a;

@@ -221,6 +221,13 @@
     color: var(--color-muted-light);
 }
 
+/* The bottom bar is already the dim tone, so the emphasis goes on the location
+   and this stays at the bar's own colour — dimming it further would put it at
+   3.04:1 against black. */
+.site-footer__location {
+    color: var(--color-white);
+}
+
 .site-footer__muted {
-    color: var(--color-muted);
+    color: var(--color-muted-light);
 }

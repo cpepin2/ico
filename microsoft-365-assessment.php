@@ -32,6 +32,7 @@ $page = [
     'title'       => 'Microsoft 365 Security Assessment | icoSTL',
     'description' => 'Identify Microsoft 365 access, security, operational, licensing, and AI-readiness issues with a structured icoSTL assessment.',
     'path'        => '/microsoft-365-assessment.php',
+    'og_image'    => '/assets/images/og-assessment.png',
     'breadcrumbs' => ['Home' => '/', 'Services' => '/services.php', 'Microsoft 365 Assessment' => '/microsoft-365-assessment.php'],
     'faq'         => $faqs,
     'schema'      => [[
