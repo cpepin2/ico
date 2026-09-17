@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/config.php';
 
 $page = [
     'title'       => 'icoSTL | Technology, Security & Automation Consulting',
-    'description' => 'Practical technology consulting for businesses that want stronger systems, better security, smarter automation, and greater readiness.',
+    'description' => 'icoSTL helps small and growing businesses secure Microsoft 365, improve technology operations, automate repetitive work, and make better technology decisions.',
     'path'        => '/',
     'body_class'  => 'page-home',
 ];
@@ -13,78 +13,134 @@ $page = [
 require __DIR__ . '/includes/header.php';
 
 partial('page-hero', [
-    'eyebrow'  => 'Ready, in case of.',
-    'headline' => "Technology works better when you're ready.",
-    'body'     => 'Practical technology consulting for businesses that want stronger systems, better security, smarter automation, and a clearer path forward.',
-    'ctas'     => [
-        ['label' => 'Assess Your Environment', 'href' => '/microsoft-365-assessment.php', 'style' => 'primary'],
-        ['label' => 'Get in Touch', 'href' => '/contact.php', 'style' => 'ghost'],
+    'headline'   => 'Technology, security, and automation for small and growing businesses.',
+    'body'       => 'icoSTL helps businesses secure Microsoft 365, improve technology operations, automate repetitive work, and make better technology decisions.',
+    'lead'       => 'Practical solutions. Clear priorities. Better prepared businesses.',
+    'ctas'       => [
+        ['label' => 'Schedule a Consultation', 'href' => '/contact.php', 'style' => 'primary'],
+        ['label' => 'See Our Services', 'href' => '/services.php', 'style' => 'ghost'],
     ],
+    'tagline'    => 'Ready, in case of.',
     'descriptor' => 'Technology / Security / Automation',
 ]);
 ?>
 
-    <!-- Intro -->
+    <!-- What we help with -->
     <section class="section">
         <div class="container">
-            <div class="split">
-                <?php partial('section-heading', [
-                    'eyebrow'  => "Built for what's next.",
-                    'headline' => 'Technology should create confidence—not uncertainty.',
-                ]); ?>
+            <?php partial('section-heading', [
+                'eyebrow'  => 'What we help with',
+                'headline' => 'Your technology should support your business, not create uncertainty.',
+                'body'     => 'icoSTL helps organizations improve security, simplify systems, reduce unnecessary manual work, and make smarter technology decisions.',
+            ]); ?>
 
-                <div class="prose">
-                    <p>As businesses grow, technology gets more complicated.</p>
-                    <p>Employees come and go. Permissions accumulate. Software gets added. Processes stay manual. Security responsibilities become unclear. New tools like AI introduce opportunities—and new questions.</p>
-                    <p>icoSTL helps businesses get ahead of those moments.</p>
-                    <p>We assess what exists, identify what matters, strengthen weak points, simplify operations, and build practical systems that help your business stay ready.</p>
-                </div>
+            <div class="card-grid card-grid--4">
+<?php
+$helpWith = [
+    [
+        'icon'  => 'secure',
+        'label' => 'Secure',
+        'body'  => 'Protect accounts, access, systems, and business information.',
+        'href'  => '/security.php',
+        'items' => [
+            'Microsoft 365 security',
+            'MFA and identity controls',
+            'Administrative access review',
+            'Email security',
+            'Employee onboarding and offboarding',
+            'Security and governance procedures',
+        ],
+    ],
+    [
+        'icon'  => 'advise',
+        'label' => 'Advise',
+        'body'  => 'Make better technology decisions with clear, practical guidance.',
+        'href'  => '/advisory.php',
+        'items' => [
+            'Technology strategy',
+            'Vendor and software evaluation',
+            'Systems planning',
+            'Technology roadmaps',
+            'Process improvement',
+            'Fractional technology leadership',
+        ],
+    ],
+    [
+        'icon'  => 'automate',
+        'label' => 'Automate',
+        'body'  => 'Reduce repetitive work and build processes that scale.',
+        'href'  => '/automation.php',
+        'items' => [
+            'Power Automate',
+            'Zoho workflows',
+            'CRM automation',
+            'Forms and approvals',
+            'Notifications and reporting',
+            'AI-assisted workflows',
+        ],
+    ],
+    [
+        'icon'  => 'prepare',
+        'label' => 'Prepare',
+        'body'  => 'Get your business ready for new technology before adoption becomes urgent.',
+        'href'  => '/ai-readiness.php',
+        'items' => [
+            'Microsoft 365 Copilot readiness',
+            'AI readiness',
+            'AI governance',
+            'Permission cleanup',
+            'Data-access preparation',
+            'Technology adoption planning',
+        ],
+    ],
+];
+foreach ($helpWith as $service): ?>
+                <article class="help-card">
+                    <span class="help-card__icon" aria-hidden="true"><?php partial('icon', ['name' => $service['icon']]); ?></span>
+                    <h3 class="help-card__title"><?= e($service['label']) ?></h3>
+                    <p class="help-card__body"><?= e($service['body']) ?></p>
+                    <ul class="help-card__list">
+<?php foreach ($service['items'] as $item): ?>
+                        <li><?= e($item) ?></li>
+<?php endforeach; ?>
+                    </ul>
+                    <a class="link-arrow" href="<?= e($service['href']) ?>">
+                        <?= e($service['label']) ?> services<span class="link-arrow__glyph" aria-hidden="true">&rarr;</span>
+                    </a>
+                </article>
+<?php endforeach; ?>
             </div>
         </div>
     </section>
 
-    <!-- In case of -->
-    <section class="section section--dark">
-        <div class="container">
-            <?php partial('section-heading', [
-                'eyebrow'  => 'What are you ready for?',
-                'headline' => 'Built around the moments that matter.',
-            ]); ?>
-
-            <?php partial('pillars'); ?>
-        </div>
-    </section>
-
     <!-- Flagship assessment -->
-    <section class="section">
+    <section class="section section--dark">
         <div class="container">
             <div class="split">
                 <div>
                     <?php partial('section-heading', [
-                        'eyebrow'  => 'Start with clarity.',
-                        'headline' => 'Know before you need to know.',
-                        'body'     => 'The icoSTL Microsoft 365 Security & Operations Assessment provides a structured review of the technology your business depends on every day.',
+                        'eyebrow'  => 'Start here',
+                        'headline' => 'Start With a Microsoft 365 Security & Operations Assessment',
+                        'body'     => "Know what's working, what isn't, and what should be addressed first.",
                     ]); ?>
 
-                    <div class="promise">
-                        <p class="promise__line">What we found.</p>
-                        <p class="promise__line">Why it matters.</p>
-                        <p class="promise__line">How important it is.</p>
-                        <p class="promise__line">What should happen next.</p>
+                    <div class="prose">
+                        <p>icoSTL reviews your Microsoft 365 environment to identify security risks, access issues, operational gaps, licensing inefficiencies, and opportunities for improvement.</p>
+                        <p>You receive clear findings, prioritized recommendations, and a practical roadmap for what to do next.</p>
                     </div>
 
                     <div class="price-callout">
                         <span class="price-callout__amount">Starting at $995</span>
-                        <span class="price-callout__note">Most organizations with 11–50 Microsoft&nbsp;365 users: $1,500 fixed fee.</span>
+                        <span class="price-callout__note">Fixed fee, scoped by user count.</span>
                     </div>
 
                     <div class="button-group">
-                        <a class="btn btn--primary" href="/microsoft-365-assessment.php">Explore the Assessment</a>
+                        <a class="btn btn--primary" href="/microsoft-365-assessment.php">Learn About the Assessment</a>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="eyebrow">Review areas include</h3>
+                    <h3 class="eyebrow">What gets reviewed</h3>
                     <ul class="scope-list">
 <?php
 $reviewAreas = [
@@ -108,25 +164,89 @@ foreach ($reviewAreas as $area): ?>
         </div>
     </section>
 
-    <!-- Why icoSTL -->
+    <!-- What this looks like in practice -->
+    <section class="section">
+        <div class="container">
+            <?php partial('section-heading', [
+                'eyebrow'  => 'Concrete output',
+                'headline' => 'What This Looks Like in Practice',
+                'body'     => 'Engagements produce specific, usable output: clear findings, working automations, prioritised plans, and a real picture of who can reach what.',
+            ]); ?>
+
+            <div class="card-grid card-grid--2">
+<?php
+$practice = [
+    ['security',   'Security Review',        'Identify risky access, authentication gaps, and configuration issues.'],
+    ['automation', 'Process Automation',     'Replace repetitive manual steps with automated workflows.'],
+    ['planning',   'Technology Planning',    'Turn scattered systems and decisions into a clear roadmap.'],
+    ['visibility', 'Operational Visibility', 'Understand who has access, what systems matter, and where risk exists.'],
+];
+foreach ($practice as [$key, $title, $caption]): ?>
+                <figure class="practice">
+                    <div class="practice__visual"><?php partial('practice-visual', ['name' => $key]); ?></div>
+                    <figcaption class="practice__caption">
+                        <h3 class="practice__title"><?= e($title) ?></h3>
+                        <p class="practice__body"><?= e($caption) ?></p>
+                    </figcaption>
+                </figure>
+<?php endforeach; ?>
+            </div>
+
+            <p class="practice__note">Illustrative examples of engagement output. No client information is shown.</p>
+        </div>
+    </section>
+
+    <!-- Who we work with -->
     <section class="section section--surface">
         <div class="container">
             <div class="split">
                 <?php partial('section-heading', [
-                    'eyebrow'  => 'Practical clarity.',
-                    'headline' => 'No technology theater.',
-                    'body'     => "Technology consulting should not leave leadership with a longer list of acronyms than they started with.\n\nicoSTL translates technical findings into practical business decisions.",
+                    'eyebrow'  => 'Who we work with',
+                    'headline' => 'Built for Businesses That Need Technology to Work Better',
+                    'body'     => 'icoSTL works with small and growing organizations that rely on Microsoft 365, cloud applications, shared systems, and evolving business processes—but may not have a full internal technology team.',
                 ]); ?>
 
-                <div class="card-grid card-grid--2">
+                <div>
+                    <p class="text-lead">We are especially useful when your business is:</p>
+                    <ul class="situation-list">
 <?php
-$valueBlocks = [
-    ['Real problems.', 'Not hypothetical complexity for its own sake.'],
-    ['Clear priorities.', 'Not a hundred recommendations presented as equally urgent.'],
-    ['Practical solutions.', 'Appropriate to the size, needs, and resources of the business.'],
-    ['Business impact.', 'Because technology exists to support the organization—not the other way around.'],
+$situations = [
+    'growing quickly',
+    'adding or removing employees',
+    'struggling with inconsistent access or permissions',
+    'relying on manual workflows',
+    'evaluating new software',
+    'preparing for AI adoption',
+    'unsure whether Microsoft 365 is configured properly',
+    'trying to improve security without creating unnecessary complexity',
 ];
-foreach ($valueBlocks as [$title, $body]): ?>
+foreach ($situations as $situation): ?>
+                        <li><?= e($situation) ?></li>
+<?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why icoSTL -->
+    <section class="section">
+        <div class="container">
+            <div class="split">
+                <?php partial('section-heading', [
+                    'eyebrow'  => 'Why icoSTL',
+                    'headline' => 'Practical Technology Advice Without the Noise',
+                    'body'     => "icoSTL combines hands-on technology experience with real business operations experience.\n\nWe focus on what matters: your people, your systems, and your processes.\n\nThat means recommendations are based on how your business actually works—not on selling unnecessary software, creating fear, or making technology more complicated than it needs to be.",
+                ]); ?>
+
+                <div class="card-grid">
+<?php
+$proofPoints = [
+    ['Business-first', 'Technology decisions should support business goals.'],
+    ['Practical',      'Recommendations should be realistic, prioritized, and actionable.'],
+    ['Clear',          'You should understand what is wrong, why it matters, and what to do next.'],
+];
+foreach ($proofPoints as [$title, $body]): ?>
                     <div class="value-block">
                         <h3 class="value-block__title"><?= e($title) ?></h3>
                         <p class="value-block__body"><?= e($body) ?></p>
@@ -137,75 +257,8 @@ foreach ($valueBlocks as [$title, $body]): ?>
         </div>
     </section>
 
-    <!-- Services overview -->
-    <section class="section">
-        <div class="container">
-            <?php partial('section-heading', [
-                'eyebrow'  => 'Technology / Security / Automation',
-                'headline' => 'Practical help where technology meets operations.',
-            ]); ?>
-
-<?php
-$overview = [
-    ['Secure', 'In case of risk.', ['Microsoft 365 security', 'Identity and MFA', 'Administrative access', 'Email security', 'External sharing', 'Audit configuration'], '/security.php'],
-    ['Advise', 'In case of change.', ['Technology strategy', 'Vendor evaluation', 'Software selection', 'Technology roadmaps', 'Budget planning', 'Fractional leadership'], '/advisory.php'],
-    ['Automate', 'In case of growth.', ['Power Automate', 'Zoho automation', 'CRM workflows', 'Forms and approvals', 'Reporting', 'Integrations'], '/automation.php'],
-    ['Prepare', 'In case of opportunity.', ['Copilot readiness', 'Permission review', 'AI governance', 'Data-access review', 'Deployment planning', 'Adoption strategy'], '/ai-readiness.php'],
-];
-foreach ($overview as [$label, $case, $items, $href]): ?>
-            <div class="capability">
-                <div class="capability__header">
-                    <h3 class="capability__label"><?= e($label) ?></h3>
-                    <p class="capability__case"><?= e($case) ?></p>
-                    <span class="accent-rule" aria-hidden="true"></span>
-                    <a class="link-arrow" href="<?= e($href) ?>">Explore <?= e($label) ?><span class="link-arrow__glyph" aria-hidden="true">&rarr;</span></a>
-                </div>
-                <ul class="capability__list">
-<?php foreach ($items as $item): ?>
-                    <li><?= e($item) ?></li>
-<?php endforeach; ?>
-                </ul>
-            </div>
-<?php endforeach; ?>
-
-            <div class="button-group">
-                <a class="btn btn--ghost" href="/services.php">See all services</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process -->
-    <section class="section section--dark">
-        <div class="container">
-            <?php partial('section-heading', [
-                'eyebrow'  => 'Clear from the start.',
-                'headline' => 'A straightforward consulting process.',
-            ]); ?>
-
-            <div class="process">
-<?php
-$steps = [
-    ['01', 'Understand', 'We start with the business problem—not the software.'],
-    ['02', 'Assess', 'We review the relevant systems, processes, risks, and constraints.'],
-    ['03', 'Prioritize', 'You get clear recommendations based on business impact.'],
-    ['04', 'Improve', 'icoSTL can implement the agreed changes or work alongside your existing provider.'],
-    ['05', 'Stay Ready', 'icoSTL Stewardship helps prevent important controls and processes from quietly drifting over time.'],
-];
-foreach ($steps as [$number, $title, $body]): ?>
-                <div class="process__step">
-                    <p class="process__number"><?= e($number) ?> / <?= e($title) ?></p>
-                    <div>
-                        <h3 class="process__title"><?= e($title) ?></h3>
-                        <p class="process__body"><?= e($body) ?></p>
-                    </div>
-                </div>
-<?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
     <!-- Existing IT provider -->
-    <section class="section">
+    <section class="section section--bordered">
         <div class="container">
             <div class="split">
                 <?php partial('section-heading', [
@@ -215,17 +268,38 @@ foreach ($steps as [$number, $title, $body]): ?>
 
                 <div class="prose">
                     <p>icoSTL can work alongside your MSP, internal IT team, software vendors, or other technology partners.</p>
-                    <p>Sometimes the right role is implementation.</p>
-                    <p>Sometimes it is independent assessment.</p>
-                    <p>Sometimes it is helping leadership understand what questions to ask.</p>
+                    <p>Sometimes the right role is implementation. Sometimes it is independent assessment. Sometimes it is helping leadership understand what questions to ask.</p>
                     <p>The objective is better technology—not replacing a provider simply for the sake of replacing them.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Local -->
+    <!-- Founder -->
     <section class="section section--surface">
+        <div class="container">
+            <div class="founder">
+                <?php partial('section-heading', [
+                    'eyebrow'  => 'Founder & Principal Consultant',
+                    'headline' => 'Built From Real Operational Experience',
+                ]); ?>
+
+                <div>
+                    <div class="prose">
+                        <p>icoSTL was founded by Charlie Pepin, whose background spans IT operations, Microsoft 365 administration, security and compliance, Zoho administration, marketing, communications, and business operations.</p>
+                        <p>That cross-functional experience shapes the way icoSTL approaches technology: not as isolated software, but as the intersection of people, systems, and processes.</p>
+                    </div>
+
+                    <div class="button-group">
+                        <a class="btn btn--ghost" href="/about.php">About icoSTL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local -->
+    <section class="section">
         <div class="container">
             <div class="split">
                 <?php partial('section-heading', [
@@ -241,44 +315,14 @@ foreach ($steps as [$number, $title, $body]): ?>
         </div>
     </section>
 
-    <!-- Founder -->
-    <section class="section">
-        <div class="container">
-            <div class="founder">
-                <?php partial('section-heading', [
-                    'eyebrow'  => 'Founder & Principal Consultant',
-                    'headline' => 'Technology experience shaped by real operations.',
-                ]); ?>
-
-                <div>
-                    <div class="prose">
-                        <p>Charlie Pepin's professional background spans operations, marketing, communications, IT, security/compliance, and business systems.</p>
-                        <p>His corporate experience includes Microsoft 365 global administration, IT operations, security and governance work, Zoho administration, web operations, and support for a distributed workforce.</p>
-                        <p>At Pack3000, he served as Microsoft 365 Global Administrator, managed day-to-day IT operations and user support, and was responsible for technology access and organizational security requirements.</p>
-                        <p>His work also included access controls, company-wide 2FA, security and governance policies, Zoho CRM/Mail/Campaigns administration, and web/digital operations.</p>
-                    </div>
-
-                    <p class="founder__closing">
-                        People. Systems. Processes.
-                        <span>Understand all three. Improve all three.</span>
-                    </p>
-
-                    <div class="button-group">
-                        <a class="btn btn--ghost" href="/about.php">About icoSTL</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 <?php
 partial('cta-section', [
-    'eyebrow'  => 'Be ready before you need to be.',
-    'headline' => 'What would you want to know before technology becomes urgent?',
-    'body'     => "If you're unsure about your Microsoft 365 environment, technology processes, security controls, automation opportunities, or readiness for AI, that's a good place to start.",
+    'eyebrow'  => 'Not sure where to start?',
+    'headline' => "That's exactly what the first conversation is for.",
+    'body'     => "We'll talk through your current environment, what is working, what is creating friction, and where the biggest opportunities may be.",
     'ctas'     => [
-        ['label' => 'Schedule a Discovery Call', 'href' => '/contact.php', 'style' => 'primary'],
-        ['label' => 'Explore the Microsoft 365 Assessment', 'href' => '/microsoft-365-assessment.php', 'style' => 'ghost'],
+        ['label' => 'Schedule a Consultation', 'href' => '/contact.php', 'style' => 'primary'],
+        ['label' => 'Learn About the Assessment', 'href' => '/microsoft-365-assessment.php', 'style' => 'ghost'],
     ],
 ]);
 

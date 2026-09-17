@@ -2,10 +2,13 @@
 /**
  * Page hero.
  *
- * @var string      $eyebrow
+ * @var string|null $eyebrow    Small label above the headline. Omit on pages
+ *                              that should lead with the plain-English headline.
  * @var string      $headline
  * @var string|null $body
+ * @var string|null $lead       Short supporting line under the body.
  * @var array       $ctas       [['label' =>, 'href' =>, 'style' => primary|secondary|ghost], ...]
+ * @var string|null $tagline    Brand tagline, placed after the CTAs.
  * @var string|null $descriptor
  * @var string      $variant    'dark' (default) or 'light'
  * @var bool        $compact
@@ -13,17 +16,25 @@
 $variant    = $variant ?? 'dark';
 $compact    = $compact ?? false;
 $ctas       = $ctas ?? [];
+$eyebrow    = $eyebrow ?? null;
 $body       = $body ?? null;
+$lead       = $lead ?? null;
+$tagline    = $tagline ?? null;
 $descriptor = $descriptor ?? null;
 ?>
 <section class="hero hero--<?= e($variant) ?><?= $compact ? ' hero--compact' : '' ?>">
     <div class="container">
         <div class="hero__content">
+<?php if ($eyebrow !== null): ?>
             <p class="eyebrow"><?= e($eyebrow) ?></p>
+<?php endif; ?>
             <h1 class="hero__headline"><?= e($headline) ?></h1>
             <span class="accent-rule" aria-hidden="true"></span>
 <?php if ($body !== null): ?>
             <p class="hero__body"><?= e($body) ?></p>
+<?php endif; ?>
+<?php if ($lead !== null): ?>
+            <p class="hero__lead"><?= e($lead) ?></p>
 <?php endif; ?>
 <?php if ($ctas !== []): ?>
             <div class="button-group">
@@ -32,8 +43,15 @@ $descriptor = $descriptor ?? null;
 <?php endforeach; ?>
             </div>
 <?php endif; ?>
+<?php if ($tagline !== null || $descriptor !== null): ?>
+            <div class="hero__brand">
+<?php if ($tagline !== null): ?>
+                <p class="hero__tagline"><?= e($tagline) ?></p>
+<?php endif; ?>
 <?php if ($descriptor !== null): ?>
-            <p class="hero__descriptor"><?= e($descriptor) ?></p>
+                <p class="hero__descriptor"><?= e($descriptor) ?></p>
+<?php endif; ?>
+            </div>
 <?php endif; ?>
         </div>
     </div>

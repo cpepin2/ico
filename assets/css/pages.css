@@ -275,3 +275,223 @@
 .u-mt-lg {
     margin-top: var(--space-lg);
 }
+
+/* ==========================================================================
+   Homepage — service, practice and audience blocks
+   ========================================================================== */
+
+/* Hero supporting line and brand lockup ------------------------------------ */
+
+.hero__lead {
+    margin-top: var(--space-md);
+    font-size: 1.125rem;
+    font-weight: var(--weight-medium);
+    color: var(--color-white);
+}
+
+.hero--light .hero__lead {
+    color: var(--color-black);
+}
+
+/* The tagline sits after the calls to action: identity, not the opening line. */
+.hero__brand {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border-dark);
+}
+
+.hero--light .hero__brand {
+    border-top-color: var(--color-border);
+}
+
+.hero__tagline {
+    font-size: 1.0625rem;
+    font-weight: var(--weight-medium);
+    color: var(--color-white);
+}
+
+.hero--light .hero__tagline {
+    color: var(--color-black);
+}
+
+.hero__brand .hero__descriptor {
+    margin-top: var(--space-xs);
+}
+
+/* "What we help with" cards -------------------------------------------------- */
+
+.help-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    border-top: 3px solid var(--color-black);
+    transition: border-top-color var(--transition-base), transform var(--transition-base);
+}
+
+.help-card:hover {
+    border-top-color: var(--color-orange);
+    transform: translateY(-2px);
+}
+
+.help-card__icon {
+    display: inline-flex;
+    color: var(--color-black);
+}
+
+.help-card__icon .icon {
+    width: 28px;
+    height: 28px;
+}
+
+.help-card__title {
+    font-size: 1.25rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-tight);
+}
+
+.help-card__body {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+}
+
+.help-card__list {
+    display: grid;
+    gap: var(--space-xs);
+    list-style: none;
+    margin: var(--space-sm) 0 var(--space-md);
+    padding: 0;
+    flex-grow: 1;
+}
+
+.help-card__list li {
+    position: relative;
+    padding-left: var(--space-md);
+    font-size: var(--text-caption);
+    line-height: 1.5;
+    color: var(--color-muted);
+}
+
+.help-card__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 5px;
+    height: 5px;
+    background: var(--color-orange);
+}
+
+/* "What this looks like in practice" ------------------------------------------ */
+
+.practice {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-white);
+}
+
+.practice__visual {
+    border-bottom: var(--border-thin);
+    background: var(--color-white);
+}
+
+.practice__visual .viz {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.practice__caption {
+    padding: var(--space-lg);
+}
+
+.practice__title {
+    font-size: var(--text-h3);
+    margin-bottom: var(--space-xs);
+}
+
+.practice__body {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+}
+
+.practice__note {
+    margin-top: var(--space-lg);
+    font-size: var(--text-caption);
+    color: var(--color-muted);
+}
+
+/* Diagram palette. Tokens so the same SVG reads correctly on either surface. */
+.viz {
+    --viz-ink: var(--color-black);
+    --viz-accent: var(--color-orange);
+    --viz-surface: var(--color-white);
+    --viz-line: var(--color-border);
+    font-family: var(--font-sans);
+}
+
+.section--dark .viz {
+    --viz-ink: var(--color-white);
+    --viz-surface: var(--color-surface-dark);
+    --viz-line: var(--color-border-dark);
+}
+
+.viz-label {
+    font-size: 11px;
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.14em;
+    fill: var(--color-muted);
+}
+
+.viz-text {
+    font-size: 14px;
+    font-weight: var(--weight-medium);
+    fill: var(--viz-ink);
+}
+
+.viz-text--invert {
+    fill: var(--viz-surface);
+}
+
+.viz-caption {
+    font-size: 11px;
+    font-weight: var(--weight-body);
+    fill: var(--color-muted);
+}
+
+/* "Who we work with" situations ------------------------------------------------ */
+
+.situation-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm) var(--space-lg);
+    list-style: none;
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+}
+
+.situation-list li {
+    position: relative;
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+    border-top: var(--border-thin);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+}
+
+.situation-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(var(--space-sm) + 0.45em);
+    width: 8px;
+    height: 8px;
+    background: var(--color-orange);
+}

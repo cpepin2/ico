@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/config.php';
 
 $page = [
     'title'       => 'Services | Technology, Security & Automation | icoSTL',
-    'description' => 'icoSTL helps businesses strengthen technology, simplify operations, reduce unnecessary risk, and prepare for what comes next.',
+    'description' => 'Microsoft 365 security, technology advisory, business process automation, and Copilot readiness for small and growing businesses in St. Louis and remotely.',
     'path'        => '/services.php',
     'breadcrumbs' => ['Home' => '/', 'Services' => '/services.php'],
 ];
@@ -15,7 +15,7 @@ require __DIR__ . '/includes/header.php';
 partial('page-hero', [
     'eyebrow'  => 'Practical technology. Real solutions.',
     'headline' => 'Prepare. Protect. Move forward.',
-    'body'     => 'icoSTL helps businesses strengthen technology, simplify operations, reduce unnecessary risk, and prepare for what comes next.',
+    'body'     => 'icoSTL secures Microsoft 365, tightens access controls, automates repetitive work, and turns scattered technology decisions into a clear plan.',
     'ctas'     => [
         ['label' => 'Start With an Assessment', 'href' => '/microsoft-365-assessment.php', 'style' => 'primary'],
         ['label' => 'Get in Touch', 'href' => '/contact.php', 'style' => 'ghost'],
@@ -110,6 +110,36 @@ $capabilities = [
                 </ul>
             </div>
 <?php endforeach; ?>
+        </div>
+    </section>
+
+    <!-- Process: moved here from the homepage, which now leads with what icoSTL does -->
+    <section class="section section--dark">
+        <div class="container">
+            <?php partial('section-heading', [
+                'eyebrow'  => 'How engagements run',
+                'headline' => 'A straightforward consulting process.',
+            ]); ?>
+
+            <div class="process">
+<?php
+$steps = [
+    ['01', 'Understand', 'We start with the business problem—not the software.'],
+    ['02', 'Assess', 'We review the relevant systems, processes, risks, and constraints.'],
+    ['03', 'Prioritize', 'You get clear recommendations based on business impact.'],
+    ['04', 'Improve', 'icoSTL can implement the agreed changes or work alongside your existing provider.'],
+    ['05', 'Stay Ready', 'icoSTL Stewardship helps prevent important controls and processes from quietly drifting over time.'],
+];
+foreach ($steps as [$number, $title, $body]): ?>
+                <div class="process__step">
+                    <p class="process__number"><?= e($number) ?> / <?= e($title) ?></p>
+                    <div>
+                        <h3 class="process__title"><?= e($title) ?></h3>
+                        <p class="process__body"><?= e($body) ?></p>
+                    </div>
+                </div>
+<?php endforeach; ?>
+            </div>
         </div>
     </section>
 

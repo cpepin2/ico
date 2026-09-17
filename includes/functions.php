@@ -182,18 +182,26 @@ function is_current(string $path): bool
 
 /**
  * Render a partial from includes/partials with the given variables scoped to it.
+ *
+ * The partial is required inside a closure so that only the caller's data is in
+ * scope. Extracting into this function's own scope would let its parameters
+ * shadow the data: extract() with EXTR_SKIP refuses to overwrite an existing
+ * variable, so a key like 'name' would silently lose to the parameter of the
+ * same name and the partial would receive the wrong value.
  */
-function partial(string $name, array $data = []): void
+function partial(string $partial, array $data = []): void
 {
-    $file = INCLUDES_PATH . '/partials/' . basename($name) . '.php';
+    $path = INCLUDES_PATH . '/partials/' . basename($partial) . '.php';
 
-    if (!is_file($file)) {
+    if (!is_file($path)) {
         if (APP_DEBUG) {
-            echo '<!-- missing partial: ' . e($name) . ' -->';
+            echo '<!-- missing partial: ' . e($partial) . ' -->';
         }
         return;
     }
 
-    extract($data, EXTR_SKIP);
-    require $file;
+    (static function (string $__path, array $__data): void {
+        extract($__data, EXTR_SKIP);
+        require $__path;
+    })($path, $data);
 }

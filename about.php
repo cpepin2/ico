@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/config.php';
 
 $page = [
     'title'       => 'About icoSTL | Ready, in case of.',
-    'description' => 'icoSTL prepares businesses for the moments when technology matters most. Practical consulting rooted in St. Louis.',
+    'description' => 'icoSTL is a St. Louis consultancy that secures Microsoft 365, improves technology operations, and automates manual work. Founded by Charlie Pepin.',
     'path'        => '/about.php',
     'breadcrumbs' => ['Home' => '/', 'About' => '/about.php'],
 ];
