@@ -280,44 +280,6 @@
    Homepage — service, practice and audience blocks
    ========================================================================== */
 
-/* Hero supporting line and brand lockup ------------------------------------ */
-
-.hero__lead {
-    margin-top: var(--space-md);
-    font-size: 1.125rem;
-    font-weight: var(--weight-medium);
-    color: var(--color-white);
-}
-
-.hero--light .hero__lead {
-    color: var(--color-black);
-}
-
-/* The tagline sits after the calls to action: identity, not the opening line. */
-.hero__brand {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border-dark);
-}
-
-.hero--light .hero__brand {
-    border-top-color: var(--color-border);
-}
-
-.hero__tagline {
-    font-size: 1.0625rem;
-    font-weight: var(--weight-medium);
-    color: var(--color-white);
-}
-
-.hero--light .hero__tagline {
-    color: var(--color-black);
-}
-
-.hero__brand .hero__descriptor {
-    margin-top: var(--space-xs);
-}
-
 /* "What we help with" cards -------------------------------------------------- */
 
 .help-card {
@@ -338,6 +300,21 @@
     transform: translateY(-2px);
 }
 
+.section--dark .help-card {
+    background: var(--color-surface-dark);
+    border-color: var(--color-border-dark);
+    border-top-color: var(--color-white);
+}
+
+.section--dark .help-card__icon {
+    color: var(--color-white);
+}
+
+.section--dark .help-card__body,
+.section--dark .help-card__list li {
+    color: var(--color-muted-on-dark);
+}
+
 .help-card__icon {
     display: inline-flex;
     color: var(--color-black);
@@ -354,9 +331,22 @@
     letter-spacing: var(--tracking-tight);
 }
 
+/* The "In case of…" line that names the moment each pillar covers. */
+.help-card__case {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-orange-text);
+}
+
+.section--dark .help-card__case {
+    color: var(--color-orange);
+}
+
 .help-card__body {
     font-size: var(--text-sm);
     color: var(--color-muted);
+    flex-grow: 1;
+    margin-bottom: var(--space-md);
 }
 
 .help-card__list {

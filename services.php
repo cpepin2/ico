@@ -113,36 +113,6 @@ $capabilities = [
         </div>
     </section>
 
-    <!-- Process: moved here from the homepage, which now leads with what icoSTL does -->
-    <section class="section section--dark">
-        <div class="container">
-            <?php partial('section-heading', [
-                'eyebrow'  => 'How engagements run',
-                'headline' => 'A straightforward consulting process.',
-            ]); ?>
-
-            <div class="process">
-<?php
-$steps = [
-    ['01', 'Understand', 'We start with the business problem—not the software.'],
-    ['02', 'Assess', 'We review the relevant systems, processes, risks, and constraints.'],
-    ['03', 'Prioritize', 'You get clear recommendations based on business impact.'],
-    ['04', 'Improve', 'icoSTL can implement the agreed changes or work alongside your existing provider.'],
-    ['05', 'Stay Ready', 'icoSTL Stewardship helps prevent important controls and processes from quietly drifting over time.'],
-];
-foreach ($steps as [$number, $title, $body]): ?>
-                <div class="process__step">
-                    <p class="process__number"><?= e($number) ?> / <?= e($title) ?></p>
-                    <div>
-                        <h3 class="process__title"><?= e($title) ?></h3>
-                        <p class="process__body"><?= e($body) ?></p>
-                    </div>
-                </div>
-<?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
 <?php
 partial('cta-section', [
     'eyebrow'  => 'Start with clarity.',

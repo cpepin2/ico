@@ -81,13 +81,13 @@ switch ($name) {
         <?php
         break;
 
-    // ---- Planning: a prioritised roadmap ----------------------------------
+    // ---- Planning: a prioritized roadmap ----------------------------------
     case 'planning':
         ?>
         <svg class="viz" viewBox="0 0 400 240" role="img"
              aria-label="A roadmap with three phases — now, next and later — shown as bars of decreasing urgency across a timeline.">
             <rect x="0.5" y="0.5" width="399" height="239" rx="3" fill="var(--viz-surface)" stroke="var(--viz-line)"/>
-            <text x="24" y="34" class="viz-label">PRIORITISED ROADMAP</text>
+            <text x="24" y="34" class="viz-label">PRIORITIZED ROADMAP</text>
             <line x1="0" y1="52" x2="400" y2="52" stroke="var(--viz-line)"/>
 
             <text x="24" y="90" class="viz-text">Now</text>

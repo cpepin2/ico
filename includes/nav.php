@@ -47,7 +47,7 @@ $navLinks = [
                     </li>
 <?php endforeach; ?>
                     <li class="site-nav__cta">
-                        <a class="btn btn--primary btn--sm" href="/contact.php">Get in Touch</a>
+                        <a class="btn btn--primary btn--sm" href="/contact.php">Schedule a Consultation</a>
                     </li>
                 </ul>
             </nav>

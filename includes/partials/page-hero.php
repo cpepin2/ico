@@ -6,9 +6,7 @@
  *                              that should lead with the plain-English headline.
  * @var string      $headline
  * @var string|null $body
- * @var string|null $lead       Short supporting line under the body.
  * @var array       $ctas       [['label' =>, 'href' =>, 'style' => primary|secondary|ghost], ...]
- * @var string|null $tagline    Brand tagline, placed after the CTAs.
  * @var string|null $descriptor
  * @var string      $variant    'dark' (default) or 'light'
  * @var bool        $compact
@@ -18,8 +16,6 @@ $compact    = $compact ?? false;
 $ctas       = $ctas ?? [];
 $eyebrow    = $eyebrow ?? null;
 $body       = $body ?? null;
-$lead       = $lead ?? null;
-$tagline    = $tagline ?? null;
 $descriptor = $descriptor ?? null;
 ?>
 <section class="hero hero--<?= e($variant) ?><?= $compact ? ' hero--compact' : '' ?>">
@@ -33,9 +29,6 @@ $descriptor = $descriptor ?? null;
 <?php if ($body !== null): ?>
             <p class="hero__body"><?= e($body) ?></p>
 <?php endif; ?>
-<?php if ($lead !== null): ?>
-            <p class="hero__lead"><?= e($lead) ?></p>
-<?php endif; ?>
 <?php if ($ctas !== []): ?>
             <div class="button-group">
 <?php foreach ($ctas as $cta): ?>
@@ -43,15 +36,8 @@ $descriptor = $descriptor ?? null;
 <?php endforeach; ?>
             </div>
 <?php endif; ?>
-<?php if ($tagline !== null || $descriptor !== null): ?>
-            <div class="hero__brand">
-<?php if ($tagline !== null): ?>
-                <p class="hero__tagline"><?= e($tagline) ?></p>
-<?php endif; ?>
 <?php if ($descriptor !== null): ?>
-                <p class="hero__descriptor"><?= e($descriptor) ?></p>
-<?php endif; ?>
-            </div>
+            <p class="hero__descriptor"><?= e($descriptor) ?></p>
 <?php endif; ?>
         </div>
     </div>
